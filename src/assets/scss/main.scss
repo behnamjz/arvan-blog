@@ -18,6 +18,18 @@ body {
   height: 300px;
   position: relative;
 
+  & .navbar-collapse {
+    @media only screen and (max-width: 1000px) {
+      background: #543ab7;
+      z-index: 9;
+      padding: 5px 10px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      background: none;
+    }
+  }
+
   @media only screen and (max-width:768px) {
     min-height: 100px;
     height: auto;
