@@ -46,7 +46,7 @@
             <router-link to="/about">About</router-link>
             <router-link to="/">Screen</router-link>
             <router-link to="/">Contact</router-link>
-            <router-link to="/" class="regsiter-button">Create Account</router-link>
+            <router-link to="/login" class="regsiter-button">Create Account</router-link>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -57,5 +57,5 @@
 </template>
 
 <script>
-export default {name: 'header'}
+export default {name: 'myheader'}
 </script>
