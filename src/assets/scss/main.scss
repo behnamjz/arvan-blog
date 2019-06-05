@@ -230,6 +230,82 @@ footer {
 
 }
 
+// post
+.post-container {
+  padding: $basesize * 3 0;
+
+  & .post-card {
+      padding: 0;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0px 0px 16px #ccc;
+      margin-bottom: $basesize * 4; 
+
+      & img {
+          width: 100%;
+          height: 280px;
+          background: #e6e6e6;
+          display: inline-block;
+      }
+
+      & .card-text {
+          padding: $basesize * 2 $basesize;
+
+          & h2 {
+              color: $darkgray;
+              font-size: 22px;
+              margin-bottom: $basesize;
+              white-space: nowrap; 
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+
+          & p {
+              color: $mediumgray;
+              font-size: 16px;
+              white-space: nowrap; 
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+
+          & h4 {
+              color: $thingray;
+              font-size: 14px;
+              margin-bottom: $basesize;
+
+          }
+      }
+  }
+
+  & .widget {
+      text-align: left;
+      padding: 0 30px;
+
+      & h3 {
+          font-weight: bold;
+          margin-bottom: 15px;
+      }
+
+      & span {
+          display: inline-block;
+          width: 100%;
+          height: 55px;
+          line-height: 55px;
+          border-bottom: 1px solid #ecebeb;
+          color: #565656;
+          cursor: pointer;
+
+          &:hover {
+              color: $middleblue;
+          }
+
+          &:last-child {
+              border-bottom: none;
+          }
+      }
+  }
+}
+
 // Pagination //
 .pagination {
   margin: 0 auto;
