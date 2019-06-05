@@ -6,7 +6,7 @@
             <div class="row">
                 <card v-for="(item, index) in postList" :postdata="item" :key="index" :index="index"></card>
 
-                <BPagination :totalPage="pages - 0" @btnClick="pagination"></BPagination>
+                <BPagination v-if="paginationflag" :totalPage="pages - 0" @btnClick="pagination"></BPagination>
             </div>
         </div>
         <div class="col-md-4 col-xs-12">
@@ -41,6 +41,7 @@ export default {
     return {
       postList: [],
       tagList: [],
+      paginationflag: false,
       pages: 20,
       activepage: 1,
       offset: 0
@@ -57,6 +58,7 @@ export default {
         axios.get(baseUrl + '/articles?limit=20&offset='+this.offset)
         .then(res => {
             this.postList = res.data.articles
+            this.paginationflag = true
         })
         .catch(error => {
             ErrorFunction(error,callerThis)
