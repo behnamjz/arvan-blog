@@ -5,9 +5,19 @@
         <div class="col-md-8 col-xs-12">
             <div class="row">
                 <card v-for="(item, index) in postList" :postdata="item" :key="index" :index="index"></card>
+
+                <BPagination :totalPage="pages - 0" @btnClick="pagination"></BPagination>
             </div>
         </div>
-        <div class="col-md-4 col-xs-12"> sidebar</div>
+        <div class="col-md-4 col-xs-12">
+
+            <!-- Most Used Tags -->
+            <div class="widget">
+                <h3>Tags</h3>
+                <span v-for="(tag , index) in tagList" :key='index'>{{tag}}</span>
+            </div>
+
+        </div>
       </div>
       
   </div>
@@ -19,30 +29,55 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Config from '../../config/config.js'
 import Card from '../components/card'
+import BPagination from '../plugin/pagination.vue'
 
 Vue.use(VueAxios, axios)
 var baseUrl = Config.baseUrl
 export default {
   name: 'home',
-  components: {Card},
+  components: {Card, BPagination},
   data () {
     return {
-      postList: []
+      postList: [],
+      tagList: [],
+      pages: 20,
+      activepage: 1,
+      offset: 0
     }
   },
   created () {
-      this.getPost()
+      this.getPosts()
+      this.getTags()
   },
   methods: {
     // get post
-    getPost () {
-        axios.get(baseUrl + '/articles')
+    getPosts () {
+        axios.get(baseUrl + '/articles?limit=20&offset='+this.offset)
         .then(res => {
             this.postList = res.data.articles
         })
         .catch(err => {
-            console.log(err)
+            alert(err)
         })
+    },
+
+    // get Tags
+    getTags () {
+        axios.get(baseUrl + '/tags')
+        .then(res => {
+            this.tagList = res.data.tags
+        })
+        .catch(err => {
+            alert(err)
+        })
+    },
+
+    //Pagination
+    // pagination 
+    pagination (value) {
+      this.activepage = value
+      this.offset = 20 * this.activepage
+      this.getPosts()
     }
   }
 }
@@ -88,6 +123,34 @@ export default {
                 font-size: 14px;
                 margin-bottom: $basesize;
 
+            }
+        }
+    }
+
+    & .widget {
+        text-align: left;
+        padding: 0 30px;
+
+        & h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        & span {
+            display: inline-block;
+            width: 100%;
+            height: 55px;
+            line-height: 55px;
+            border-bottom: 1px solid #ecebeb;
+            color: #565656;
+            cursor: pointer;
+
+            &:hover {
+                color: $middleblue;
+            }
+
+            &:last-child {
+                border-bottom: none;
             }
         }
     }
