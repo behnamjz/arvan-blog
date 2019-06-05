@@ -30,6 +30,7 @@ import VueAxios from 'vue-axios'
 import Config from '../../config/config.js'
 import Card from '../components/card'
 import BPagination from '../plugin/pagination.vue'
+import {ErrorFunction} from '../repositories/Repository'
 
 Vue.use(VueAxios, axios)
 var baseUrl = Config.baseUrl
@@ -52,23 +53,25 @@ export default {
   methods: {
     // get post
     getPosts () {
+        let callerThis = this 
         axios.get(baseUrl + '/articles?limit=20&offset='+this.offset)
         .then(res => {
             this.postList = res.data.articles
         })
-        .catch(err => {
-            alert(err)
+        .catch(error => {
+            ErrorFunction(error,callerThis)
         })
     },
 
     // get Tags
     getTags () {
+        let callerThis = this 
         axios.get(baseUrl + '/tags')
         .then(res => {
             this.tagList = res.data.tags
         })
-        .catch(err => {
-            alert(err)
+        .catch(error => {
+           ErrorFunction(error,callerThis)
         })
     },
 

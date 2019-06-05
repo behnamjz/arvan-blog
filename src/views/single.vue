@@ -16,6 +16,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Config from '../../config/config.js'
+import {ErrorFunction} from '../repositories/Repository'
 
 Vue.use(VueAxios, axios)
 var baseUrl = Config.baseUrl
@@ -35,13 +36,14 @@ export default {
   methods: {
     // get post
     getPost () {
-        axios.get(baseUrl + '/articles/' + this.slug)
-        .then(res => {
-          this.mypost = res.data.article
-        })
-        .catch(err => {
-            console.log(err)
-        })
+      let callerThis = this
+      axios.get(baseUrl + '/articles/' + this.slug)
+      .then(res => {
+        this.mypost = res.data.article
+      })
+      .catch(error => {
+        ErrorFunction(error,callerThis)
+      })
     }
   }
 }
